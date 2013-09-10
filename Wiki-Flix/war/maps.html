@@ -1,0 +1,196 @@
+<html>
+<head>
+    <title>Wiki-Flix</title>
+</head>
+    <link href="tabcontent.css" rel="stylesheet" type="text/css">
+    <script src="tabcontent.js" type="text/javascript"></script>
+    
+    <body>
+        <center><br><br><br><br><br><br><p><font size="24"><a href="http://wiki-flix.appspot.com/index.html" ><b>Wiki-Flix</b></a></font></p><br>
+<div style="width: 650px; margin: 0 auto; padding: 30px 0 40px; font: 0.85em arial;">
+    <ul class="tabs" persist="false">
+        <li><a href="#">Find a Theater</a>
+
+        </li>
+    </ul>
+    <div class="tabcontents">
+        <div>
+            <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+            <style type="text/css">
+                html {
+                    height: 100%
+                }
+                body {
+                    height: 100%;
+                    margin: 0;
+                    padding: 0
+                }
+                #map-canvas {
+                    height: 50%
+                }
+            </style>
+            <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCnWv3fHkixcHHQ87-bzORrArdCIJDygjY&sensor=true"></script>
+            <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?libraries=places&sensor=true"></script>
+            <script type="text/javascript">
+                var map, placesList;
+
+                function initialize() {
+                    var myOptions = {
+                        zoom: 12,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
+
+                    // Try W3C Geolocation (Preferred)
+                    if (navigator.geolocation) {
+                        browserSupportFlag = true;
+                        navigator.geolocation.getCurrentPosition(function (position) {
+                            initialLocation = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            map.setCenter(initialLocation);
+
+                            var pos = new google.maps.LatLng(position.coords.latitude,
+                                position.coords.longitude);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: map.getCenter(),
+                                title: 'Current location.'
+                            });
+                            var infowindow = new google.maps.InfoWindow({
+                                map: map,
+                                position: pos,
+                                content: 'Current location found with geolocation.'
+                            });
+
+                            map.setCenter(pos);
+
+                        }, function () {
+                            handleNoGeolocation(browserSupportFlag);
+                        });
+                    }
+                    // Browser doesn't support Geolocation
+                    else {
+                        browserSupportFlag = false;
+                        handleNoGeolocation(browserSupportFlag);
+                    }
+
+                    function handleNoGeolocation(errorFlag) {
+                        if (errorFlag == true) {
+                            var mapOptions = {
+                                zoom: 13,
+                                center: new google.maps.LatLng(30.500455, -87.233162),
+                                mapTypeId: google.maps.MapTypeId.ROADMAP
+                            };
+                            map = new google.maps.Map(document.getElementById('map-canvas'),
+                                mapOptions);
+                            var marker = new google.maps.Marker({
+                                map: map,
+                                position: map.getCenter(),
+                                title: 'Current location.'
+                            });
+                            marker.setMap(map);
+                            var infowindow = new google.maps.InfoWindow({
+                                map: map,
+                                position: new google.maps.LatLng(30.500455, -87.233162),
+                                content: 'Geolocation disabled, set to default location.'
+                            });
+                        }
+                        map.setCenter(initialLocation);
+                    }
+                    var pyrmont = new google.maps.LatLng(30.500455, -87.233162);
+                    var request = {
+                        location: pyrmont,
+                        radius: 10000,
+                        types: ['movie_theater']
+                    };
+                    placesList = document.getElementById('places');
+                    var service = new google.maps.places.PlacesService(map);
+                    service.nearbySearch(request, callback);
+                }
+
+                function callback(results, status, pagination) {
+                    if (status != google.maps.places.PlacesServiceStatus.OK) {
+                        return;
+                    } else {
+                        createMarkers(results);
+
+                        if (pagination.hasNextPage) {
+                            var moreButton = document.getElementById('more');
+
+                            moreButton.disabled = false;
+
+                            google.maps.event.addDomListenerOnce(moreButton, 'click', function () {
+                                moreButton.disabled = true;
+                                pagination.nextPage();
+                            });
+                        }
+                    }
+                }
+
+                function createMarkers(places) {
+                    var bounds = new google.maps.LatLngBounds();
+
+                    for (var i = 0, place; place = places[i]; i++) {
+                        var image = {
+                            url: place.icon,
+                            size: new google.maps.Size(71, 71),
+                            origin: new google.maps.Point(0, 0),
+                            anchor: new google.maps.Point(17, 34),
+                            scaledSize: new google.maps.Size(25, 25)
+                        };
+
+                        var marker = new google.maps.Marker({
+                            map: map,
+                            icon: image,
+                            title: place.name,
+                            position: place.geometry.location
+                        });
+
+                        placesList.innerHTML += '<li>' + place.name + '</li><br>';
+
+                        bounds.extend(place.geometry.location);
+                    }
+                    map.fitBounds(bounds);
+                }
+
+                google.maps.event.addDomListener(window, 'load', initialize);
+            </script>
+            <style>
+                #results {
+                    font-family: Arial, Helvetica, sans-serif;
+                    position: absolute;
+                    right: 20px;
+                    top: 50%;
+                    margin-top: -195px;
+                    height: 340px;
+                    width: 200px;
+                    padding: 5px;
+                    z-index: 5;
+                    border: 2px solid #999;
+                    background: #fff;
+                }
+                h2 {
+                    font-size: 22px;
+                    margin: 0 0 5px 0;
+                }
+                
+                li {
+                	position: center;
+                    background-color: #f1f1f1;
+                    text-overflow: ellipsis;
+                    white-space: nowrap;
+                    overflow: hidden;
+                }
+                li:nth-child(odd) {
+                    background-color: #fcfcfc;
+                }
+
+            </style>
+            <div id="map-canvas" /></div>
+        <div id="results">
+             <h2>Theaters</h2>
+            <ul id="places"></ul>
+        </div>
+    </div>
+    </body>
+    
+    </html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Tabbed Content</title>
+    <script src="tabcontent.js" type="text/javascript"></script>
+    <link href="template1/tabcontent.css" rel="stylesheet" type="text/css" />
+</head>
+<body style="background:#F6F9FC;">
+    <div style="width: 500px; margin: 0 auto; padding: 120px 0 40px; font: 0.85em arial;">
+        <ul class="tabs" persist="true">
+            <li><a href="#" rel="view1">Persistence</a></li>
+            <li><a href="#" rel="view2">Multiple</a></li>
+            <li><a href="#" rel="view3">Bookmark Support</a></li>
+            <li><a href="#" rel="view4">Outside Links</a></li>
+        </ul>
+        <div class="tabcontents">
+            <div id="view1" class="tabcontent">
+                <b>Persistence</b>
+                <p>Setting &lt;ul class="tabs" <b>persist="ture"</b>&gt;...&lt;/ul&gt; will turn on the <strong>persistence</strong> feature: 
+                the most recently clicked tab will be remembered even if the page is reloaded or revisited within the browser session. </p>
+                <p style="font-size:small;"><span style="color:red;">Note:</span> If you open this page directly with physical path(i.e. file:///D:/tabcontent/demo.html ) instead of from web app, you may not see this feature.</p>
+                
+            </div>
+            <div id="view2" class="tabcontent">
+                <b>Multiple Tab Contents</b>
+                <p>You can have multiple tab contents on the same page, with only one copy of the CSS and JavaScript files.</p>
+            </div>
+            <div id="view3" class="tabcontent">
+                <b>Bookmark Support</b>
+                <p>You can also open a tab or a bookmark from a link anywhere on the page.</p>
+                <p id="mark4">This is a paragraph with id="mark4".</p>
+                <p>By clicking the bookmark link at the bottom of this Tab Content, you will see me with this Tab Content panel being opened at the same time.</p>
+            </div>
+            <div id="view4" class="tabcontent">
+                <b>Opened by a link from another page</b>
+                <p>Link from another page can select a tab on the target page when loaded.</p>                
+            </div>
+        </div>
+        <br /><br />
+        <p>Switch to other templates: Open this page with Notepad, and update the CSS link to template1~6.</p>
+        <p>Example of bookmark support: <a href="#" onclick="tabs.open('mark4',true);return false;">Bookmark link to mark4</a></p>
+        <p>Version: v2012.5.22<br /><a href="http://www.menucool.com/tabbed-content" target="_blank">www.menucool.com</a></p>
+    </div>
+</body>
+</html>

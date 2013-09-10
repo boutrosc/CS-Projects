@@ -1,0 +1,197 @@
+<html>
+    
+    <head>
+    <head>
+    <title>Wiki-Flix</title>
+</head>
+        <link href="tabcontent.css" rel="stylesheet" type="text/css">
+        <script src="tabcontent.js" type="text/javascript"></script>
+		<script type="text/javascript">
+            function now_playing() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://api.themoviedb.org/3/movie/now_playing?api_key=64a2409beb376d93795786427e4de2a6");
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        var data = JSON.parse(this.responseText);
+                        var i = 0;
+                        document.getElementById("nowTab").innerHTML = "";
+                        var movieID = new Array();
+                        for (var i in data.results) movieID[i] = data.results[i].id;
+                    }
+                    i = 0;
+                    for (var i in movieID) {
+                        var req = new XMLHttpRequest();
+                        req.open("GET", "http://api.themoviedb.org/3/movie/" + movieID[i] + "?api_key=64a2409beb376d93795786427e4de2a6");
+                        req.setRequestHeader("Accept", "application/json");
+                        req.onreadystatechange = function () {
+                            if (this.readyState == 4) {
+                                var info = JSON.parse(this.responseText);
+                                if (info.backdrop_path) document.getElementById("nowTab").innerHTML += "<p><img src='http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/" + info.backdrop_path + "' width='185' height='104'/>";
+                                else document.getElementById("nowTab").innerHTML += "<p><img src='http://wiki-flix.appspot.com/filmreel.jpg' width='185' height='104'/>";
+                                document.getElementById("nowTab").innerHTML += "<b>" + info.original_title + "</b> <i><font size=2>(" + info.release_date.substring(0, 4) + ")</i></font><br>";
+                                if (info.tagline) document.getElementById("nowTab").innerHTML += "<i>" + info.tagline + "</i><br><br><br>";
+                                else document.getElementById("nowTab").innerHTML += "<br><br><br>";
+
+                                if (!info.vote_average) {
+                                    document.getElementById("nowTab").innerHTML += "<br>";
+                                } else document.getElementById("nowTab").innerHTML += "Rating: " + info.vote_average + "/10 <font size='2'>(" + info.vote_count + " votes)</font><br>";
+                                if (info.genres[0]) {
+                                    document.getElementById("nowTab").innerHTML += info.genres[0].name;
+                                    for (x = 1; x < 3; x++) document.getElementById("nowTab").innerHTML += ", " + info.genres[x].name;
+                                } else document.getElementById("nowTab").innerHTML += "<br>";
+                                document.getElementById("nowTab").innerHTML += "</p>";
+                            }
+                        };
+                        req.send(null);
+                    }
+                };
+                xhr.send(null);
+            }
+
+            function movieQuery() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://api.themoviedb.org/3/search/movie?api_key=64a2409beb376d93795786427e4de2a6&query=" + document.getElementById('searchQuery').value);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        var data = JSON.parse(this.responseText);
+                        var i = 0;
+                        document.getElementById("movieTab").innerHTML = "";
+                        if (data.results == '') document.getElementById("movieTab").innerHTML = "<center><font size='3'><br>No Results</font></center>";
+                        var movieID = new Array();
+                        for (var i in data.results) movieID[i] = data.results[i].id;
+                    }
+                    i = 0;
+                    for (var i in movieID) {
+                        var req = new XMLHttpRequest();
+                        req.open("GET", "http://api.themoviedb.org/3/movie/" + movieID[i] + "?api_key=64a2409beb376d93795786427e4de2a6");
+                        req.setRequestHeader("Accept", "application/json");
+                        req.onreadystatechange = function () {
+                            if (this.readyState == 4) {
+                                var info = JSON.parse(this.responseText);
+                                if (info.backdrop_path) document.getElementById("movieTab").innerHTML += "<p><img src='http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/" + info.backdrop_path + "' width='185' height='104'/>";
+                                else document.getElementById("movieTab").innerHTML += "<p><img src='http://wiki-flix.appspot.com/filmreel.jpg' width='185' height='104'/>";
+                                document.getElementById("movieTab").innerHTML += "<b>" + info.original_title + "</b> <i><font size=2>(" + info.release_date.substring(0, 4) + ")</i></font><br>";
+                                if (info.tagline) document.getElementById("movieTab").innerHTML += "<i>" + info.tagline + "</i><br><br><br>";
+                                else document.getElementById("movieTab").innerHTML += "<br><br><br>";
+
+                                if (!info.vote_average) {
+                                    document.getElementById("movieTab").innerHTML += "<br>";
+                                } else document.getElementById("movieTab").innerHTML += "Rating: " + info.vote_average + "/10 <font size='2'>(" + info.vote_count + " votes)</font><br>";
+                                if (info.genres[0]) {
+                                    document.getElementById("movieTab").innerHTML += info.genres[0].name;
+                                    for (x = 1; x < 3; x++) document.getElementById("movieTab").innerHTML += ", " + info.genres[x].name;
+                                } else document.getElementById("movieTab").innerHTML += "<br>";
+                                document.getElementById("movieTab").innerHTML += "</p>";
+                            }
+                        };
+                        req.send(null);
+                    }
+                };
+                xhr.send(null);
+                personQuery();
+            }
+
+            function personQuery() {
+                var xhr = new XMLHttpRequest();
+                xhr.open("GET", "http://api.themoviedb.org/3/search/person?api_key=64a2409beb376d93795786427e4de2a6&query=" + document.getElementById('searchQuery').value);
+                xhr.setRequestHeader("Accept", "application/json");
+                xhr.onreadystatechange = function () {
+                    if (this.readyState == 4) {
+                        var data = JSON.parse(this.responseText);
+                        var i = 0;
+                        document.getElementById("personTab").innerHTML = "";
+                        if (data.results == '') document.getElementById("personTab").innerHTML = "<center><font size='3'><br>No Results</font></center>";
+                        var personID = new Array();
+                        for (var i in data.results) {
+                            personID[i] = data.results[i].id;
+                        }
+                    }
+                    i = 0;
+                    for (var i in personID) {
+                        var req = new XMLHttpRequest();
+                        req.open("GET", "http://api.themoviedb.org/3/person/" + personID[i] + "?api_key=64a2409beb376d93795786427e4de2a6");
+                        req.setRequestHeader("Accept", "application/json");
+                        req.onreadystatechange = function () {
+                            if (this.readyState == 4) {
+                                var info = JSON.parse(this.responseText);
+
+                                var known = new XMLHttpRequest();
+                                known.open("GET", "http://api.themoviedb.org/3/person/" + info.id + "/credits?api_key=64a2409beb376d93795786427e4de2a6");
+                                known.setRequestHeader("Accept", "application/json");
+                                known.onreadystatechange = function () {
+                                    if (this.readyState == 4) {
+                                        var rep = JSON.parse(this.responseText);
+                                        if (info.profile_path) document.getElementById("personTab").innerHTML += "<p><br><img src='http://d3gtl9l2a4fn1j.cloudfront.net/t/p/w185/" + info.profile_path + "' width='130' height='185' />";
+                                        else document.getElementById("personTab").innerHTML += "<p><br><img src='http://wiki-flix.appspot.com/missing.jpg' width='130' height='160' />";
+                                        document.getElementById("personTab").innerHTML += "<b>" + info.name + "</b><br>";
+                                        if (info.birthday) {
+                                            document.getElementById("personTab").innerHTML += info.birthday;
+                                            if (info.deathday) document.getElementById("personTab").innerHTML += " to " + info.deathday + "<br>";
+                                            else document.getElementById("personTab").innerHTML += "<br>";
+                                        } else document.getElementById("personTab").innerHTML += "<br>";
+
+                                        if (info.place_of_birth) document.getElementById("personTab").innerHTML += info.place_of_birth + "<br>";
+                                        else document.getElementById("personTab").innerHTML += "<br>";
+
+                                        if (rep.cast[0]) {
+                                            document.getElementById("personTab").innerHTML += "<br><br><br><br><br>Known For: " + rep.cast[0].original_title;
+                                            for (x = 1; x < 4; x++) document.getElementById("personTab").innerHTML += ", " + rep.cast[x].original_title;
+                                        } else document.getElementById("personTab").innerHTML += "<br><br><br><br><br><br>";
+                                        document.getElementById("personTab").innerHTML += "<br><br></p>";
+                                    }
+                                };
+                                known.send();
+                            }
+                        };
+
+
+
+                        req.send(null);
+                    }
+                };
+                xhr.send(null);
+                now_playing();
+            }
+        </script>
+    </head>
+    
+    <body>
+        <center>
+            <br><br><br><br><br><br><p><font size="24"><a href="http://wiki-flix.appspot.com/index.html" ><b>Wiki-Flix</b></a></font>
+
+            </p>
+            <form>
+                <p>
+                    <input type="text" id="searchQuery" style="width: 175px;" onfocus="this.value=''" VALUE="Search for a movie or person">
+                </p>
+                <input type="submit" style="position: absolute; left: -9999px; width: 1px; height: 1px;" onclick="movieQuery(); return false" />
+            </form>
+        </center>
+        <div style="width: 600px; margin: 0 auto; padding: 30px 0 40px; font: 0.85em arial;">
+            <ul class="tabs" persist="false">
+                <li><a href="#" rel="view1">Movies</a>
+
+                </li>
+                <li><a href="#" rel="view2">Persons</a></li>
+                <li><a href="#" rel="view3">Now Playing</a></li>
+                <li><a href="http://wiki-flix.appspot.com/maps.html">Find a Theater</a></li>
+            </ul>
+            <div class="tabcontents">
+                <div id="view1" class="tabcontent">
+                    <p id=movieTab></p>
+                </div>
+                <div id="view2" class="tabcontent">
+                    <p id=personTab></p>
+                </div>
+                <div id="view3" class="tabcontent">
+                <p id=nowTab></p>
+                <script>
+                now_playing();
+                </script>
+            </div>
+                <div id="view3" class="tabcontent"></div>
+        </div>
+    </body>
+</html>
