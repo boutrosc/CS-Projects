@@ -15,6 +15,29 @@ A 'Main' class to initiate the program
 
 The plateau was designed in a grid layout and the rover moved around in a coordinate scheme. The directions (N,S,W,E) were converted to degree integerals (0, 90, 180, 270) during processing portion of the code to dicate compass position. A grid is created using the specified user coordinates and then a while loop is initiated to create new rovers, move them, and print the summary.
 
+INPUT:
+The first line of input is the upper-right coordinates of the plateau, the lower-left coordinates are assumed to be 0,0.
+ 
+The rest of the input is information pertaining to the rovers that have been deployed. Each rover has two lines of input. The first line gives the rover's position, and the second line is a series of instructions telling the rover how to explore the plateau.
+ 
+The position is made up of two integers and a letter separated by spaces, corresponding to the x and y co-ordinates and the rover's orientation.
+ 
+Each rover will be finished sequentially, which means that the second rover won't start to move until the first one has finished moving.
+
+Test Input:
+5 5	  //Upper-right coordinates of plateau
+1 2 N	  //Rover 1's starting coordinate position and heading
+LMLMLMLMM //Rover 1's series of exploration instructions
+3 3 E	  
+MMRMMRMRRM
+ 
+ 
+OUTPUT
+The output for each rover should be its final co-ordinates and heading.
+ 
+INPUT AND OUTPUT
+ 
+
 
 ASSUMPTIONS:
 Input is correct
