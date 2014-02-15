@@ -11,4 +11,4 @@ After usage enter 'make clean' to remove program
 
 Purpose: The purpose of the multi-threaded prime number generator is to take a maximum number of values and search through them for any prime numbers using a specfied number of threads to perform the search operation.
 
-Usage: After executing the program, a list of prime numbers up to the maximum number the user specified will be displayed. Below the list of prime numbers there will be a summary consisting of three numbers seperated by three commas. The first number is the user specified maximum number, the second number is the user specified number of threads, and the third number is the elapsed time to search for the prime numbers.
+Usage: After executing the program, a list of prime numbers up to the maximum number the user specified will be displayed. Below the list of prime numbers there will be a summary displaying the numbers checked, number of threads used, and elapsed time to search for prime numbers.

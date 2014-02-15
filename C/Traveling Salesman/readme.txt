@@ -13,8 +13,8 @@ HOW TO RUN
 2. Open a terminal
 
 3. Change directory to file .c and .dat location
-4. Enter "gcc traveling_salesman.c" into the terminal
-5. Next type "./a.out cityweights.dat" to run
+4. Enter "make" into the terminal
+5. Next type "./traveling cityweights.dat" to run
 
 
 

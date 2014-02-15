@@ -1,14 +1,8 @@
-CFLAGS = -g -Wall 
-CC = gcc
+all: shell
 
-objects = myshell.o parse.o
-
-shell: $(objects)
-	$(CC) -o shell $(objects)
-
-myshell.o: myshell.c parse.h
-parse.o: parse.c parse.h
+shell: myshell.c parse.c
+	$(CC) -o $@ $^
 
 .PHONY : clean
 clean: 
-	rm shell $(objects)
+	rm shell

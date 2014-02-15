@@ -36,7 +36,7 @@ public class Component extends JComponent {
 			if (races < 1)
 				races = 1;
 		}
-		input = JOptionPane.showInputDialog("Number of cars: ");
+		input = JOptionPane.showInputDialog("Number of cars (max 4): ");
 		if (input.equals(""))
 			cars = 2;
 		else {
@@ -236,21 +236,21 @@ public class Component extends JComponent {
 		slowest = car1;
 		switch (cars) {
 		case 4:
-			if (car2.xLeft < slowest.xLeft)
+			if (car2.xLeft <= slowest.xLeft)
 				slowest = car2;
-			if (car3.xLeft < slowest.xLeft)
+			if (car3.xLeft <= slowest.xLeft)
 				slowest = car3;
-			if (car4.xLeft < slowest.xLeft)
+			if (car4.xLeft <= slowest.xLeft)
 				slowest = car4;
 			break;
 		case 3:
-			if (car2.xLeft < slowest.xLeft)
+			if (car2.xLeft <= slowest.xLeft)
 				slowest = car2;
-			if (car3.xLeft < slowest.xLeft)
+			if (car3.xLeft <= slowest.xLeft)
 				slowest = car3;
 			break;
 		case 2:
-			if (car2.xLeft < slowest.xLeft)
+			if (car2.xLeft <= slowest.xLeft)
 				slowest = car2;
 			break;
 		case 1:
@@ -278,14 +278,6 @@ public class Component extends JComponent {
 	public void moveCar(Racecar car) {
 		Random random = new Random();
 		int x = random.nextInt(20);
-		if (x <= 5)
-			x = 5;
-		else if (x <= 10)
-			x = 10;
-		else if (x <= 15)
-			x = 15;
-		else
-			x = 20;
 		// repositions the race car by X pixels
 		car.move(x);
 		// redraws the panel
@@ -309,14 +301,10 @@ public class Component extends JComponent {
 				.println("--------------------RACE RESULTS--------------------");
 		switch (cars) {
 		case 4:
-			System.out.println("Orange Mustang #72:\t " + car1.racesRun
-					+ " races run \t " + car1.racesWon + " races won");
-			System.out.println("Red Challenger #16:\t " + car2.racesRun
-					+ " races run \t " + car2.racesWon + " races won");
-			System.out.println("Magenta  Camaro #45:\t " + car3.racesRun
-					+ " races run \t " + car3.racesWon + " races won");
-			System.out.println("Blue Firebird #69:\t " + car4.racesRun
-					+ " races run \t " + car4.racesWon + " races won");
+			System.out.println("Orange Mustang #72:\t " + car1.racesWon + " races won");
+			System.out.println("Red Challenger #16:\t " + car2.racesWon + " races won");
+			System.out.println("Magenta  Camaro #45:\t " + car3.racesWon + " races won");
+			System.out.println("Blue Firebird #69:\t " + car4.racesWon + " races won");
 			slowest = car1;
 			if (car2.slowest > slowest.slowest)
 				slowest = car2;
@@ -334,12 +322,9 @@ public class Component extends JComponent {
 				System.out.print("\n\nSlowest car: Blue Firebird #69");
 			break;
 		case 3:
-			System.out.println("Orange Mustang #72:\t " + car1.racesRun
-					+ " races run \t " + car1.racesWon + " races won");
-			System.out.println("Red Challenger #16:\t " + car2.racesRun
-					+ " races run \t " + car2.racesWon + " races won");
-			System.out.println("Magenta  Camaro #45:\t " + car3.racesRun
-					+ " races run \t " + car3.racesWon + " races won");
+			System.out.println("Orange Mustang #72:\t " + car1.racesWon + " races won");
+			System.out.println("Red Challenger #16:\t " + car2.racesWon + " races won");
+			System.out.println("Magenta  Camaro #45:\t " + car3.racesWon + " races won");
 			slowest = car1;
 			if (car2.slowest > slowest.slowest)
 				slowest = car2;
@@ -353,10 +338,8 @@ public class Component extends JComponent {
 				System.out.print("\n\nSlowest car: Magenta  Camaro #45");
 			break;
 		case 2:
-			System.out.println("Orange Mustang #72:\t " + car1.racesRun
-					+ " races run \t " + car1.racesWon + " races won");
-			System.out.println("Red Challenger #16:\t " + car2.racesRun
-					+ " races run \t " + car2.racesWon + " races won");
+			System.out.println("Orange Mustang #72:\t " + car1.racesWon + " races won");
+			System.out.println("Red Challenger #16:\t " + car2.racesWon + " races won");
 			slowest = car1;
 			if (car2.slowest > slowest.slowest)
 				slowest = car2;
@@ -366,8 +349,7 @@ public class Component extends JComponent {
 				System.out.print("\n\nSlowest car: Red Challenger #16");
 			break;
 		case 1:
-			System.out.println("Orange Mustang #72:\t " + car1.racesRun
-					+ " races run \t " + car1.racesWon + " races won");
+			System.out.println("Orange Mustang #72:\t " + car1.racesWon + " races won");
 			System.out
 					.print("\n\nSlowest car (and only car): Orange Mustang #72");
 

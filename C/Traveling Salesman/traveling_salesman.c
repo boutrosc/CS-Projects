@@ -51,7 +51,7 @@ int main(int argc, char *argv[]) {
     srand(time(NULL));
     int i = 0, j = 0;
     if (argc != 2) {
-        printf("Missing arguments!\n");
+        printf("Usage : <inputFile>\n");
         exit(1);
     }
     FILE *data = fopen(argv[1], "r");
@@ -103,7 +103,7 @@ int main(int argc, char *argv[]) {
     printf("Optimal route:    ");
     for (i = 0; i < Brute->size; i++) printf("%i ", (int) Brute->elite[i] + 1);
     printf("%i", cityStart);
-    printf("\nBest route found: ");
+    printf("\nBest route found: \n");
     for (i = 0; i < Genetic->size; i++) printf("%i ", (int) Genetic->elite[0][i] + 1);
     printf("%i", cityStart);
 

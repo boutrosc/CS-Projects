@@ -1,10 +1,10 @@
 all: TCPclient TCPserver
 
-TCPclient:
-	gcc -Wall -Wextra -o TCPclient TCPmain.c TCPclient.c TCPclient.h
+TCPclient: TCPmain.c TCPclient.c
+	$(CC) -o $@ $^
 
-TCPserver:
-	gcc -Wall -Wextra -o TCPserver TCPserver.c -pthread
+TCPserver: TCPserver.c
+	$(CC) -o $@ $^ -pthread
 
 
 .PHONY : clean

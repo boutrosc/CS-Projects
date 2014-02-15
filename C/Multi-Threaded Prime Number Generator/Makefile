@@ -1,13 +1,8 @@
-CFLAGS = -g -Wall
-CC = gcc 
+all: prime
 
-objects = mt-prime.o
-
-prime: $(objects)
-	$(CC) -o prime $(objects) -lpthread -lrt -lm
-
-mt-prime.o: mt-prime.c
+prime: mt-prime.c
+	$(CC) -o $@ $^ -lpthread -lrt -lm
 
 .PHONY : clean
 clean: 
-	rm prime $(objects)
+	rm prime

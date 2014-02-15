@@ -1,2 +1,0 @@
-Test the stock input reader
-did it work correctly?

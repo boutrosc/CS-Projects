@@ -1,10 +1,10 @@
 all: UDPclient UDPserver
 
-UDPclient:
-	gcc -Wall -Wextra -o UDPclient UDPmain.c UDPclient.c UDPclient.h
+UDPclient: UDPmain.c UDPclient.c
+	$(CC) -o $@ $^
 
-UDPserver:
-	gcc -Wall -Wextra -o UDPserver UDPserver.c -pthread
+UDPserver: UDPserver.c
+	$(CC) -o $@ $^ -pthread
 
 
 .PHONY : clean

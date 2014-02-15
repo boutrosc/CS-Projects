@@ -15,7 +15,7 @@
  */
 void input(ParamP param, char userIn[]) {
 	reset(param);
-	printf("$$$ ");
+	printf("$ ");
 	fgets(userIn, MAXSTRING, stdin); //get input from user
 	parse(param, userIn);
 }

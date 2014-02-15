@@ -90,7 +90,7 @@ int isPrime(int number) {
  */
 void handleInput(int argc) {
 	if (argc != 3) {
-		fprintf(stderr, "Error - incorrect number of arguments. Exiting...\n");
+		fprintf(stderr, "Usage : <maxNumbers> <numberOfThreads>\n");
 		exit(EXIT_FAILURE);
 	}
 }
@@ -105,5 +105,5 @@ void handleInput(int argc) {
 void print(struct timespec start, struct timespec stop, int max, int numberOfThreads) {
 	double accum = (stop.tv_sec - start.tv_sec)
 			+ (stop.tv_nsec - start.tv_nsec) / BILLION;
-	fprintf(stderr, "%i, %i, %lf\n", max, numberOfThreads, accum);
+	fprintf(stderr, "Max numbers: %i\nThreads: %i\nElasped time: %lf\n", max, numberOfThreads, accum);
 }

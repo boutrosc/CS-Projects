@@ -29,7 +29,7 @@ int main() {
  * reads in user input
  *******************************************/
 void input() {
-    int itemNum, itemMin, itemMax, binNum, binMin, binMax, i;
+    int itemNum, itemMin, itemMax, binNum, binMin, binMax;
     char fname[20];
     printf("Name output file : \n");
     scanf("%s", fname);

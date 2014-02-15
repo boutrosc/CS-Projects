@@ -6,7 +6,9 @@ HOW TO RUN
 
 2. Change directory to file location
 
-3. Enter "gcc filesystem.c" into the terminal
+3. Enter "make" into the terminal
+
+4. Enter "./filesystem" to run the program
 
 
 

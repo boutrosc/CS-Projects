@@ -1,13 +1,8 @@
-CFLAGS = -g -Wall
-CC = gcc 
+all: lizard
 
-objects = lizard.o
-
-lizard: $(objects)
-	$(CC) -o lizard $(objects) -lpthread -lrt
-
-lizard.o: lizard.c
+lizard: lizard.c
+	$(CC) -o $@ $^ -lpthread -lrt
 
 .PHONY : clean
 clean: 
-	rm lizard $(objects)
+	rm lizard

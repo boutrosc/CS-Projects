@@ -123,7 +123,7 @@ int main(int argc, char** argv) {
     online(on);
     offline(off, on);
     summary(on, off);
-    return;
+    return 0;
 }
 
 /********************************************
@@ -351,7 +351,6 @@ BinP intializeBin(int binMin, int binMax) {
  * 'on' contains the online information
  *******************************************/
 void matchBins(HeuristicP off, HeuristicP on){
-    int i;
     off->bbsi->bf->current = off->bbsi->bf->binRoot;
     off->bbvi->bf->current = off->bbvi->bf->binRoot;
     off->vbvi->bf->current = off->vbvi->bf->binRoot;
@@ -464,8 +463,7 @@ void nextFitOn(int itemNum, int *items, BinP binRoot, ErrorP errorRoot, BinP cur
  * current is the current bin
  *******************************************/
 void bestFitOn(int binNum, int itemNum, int *items, BinP binRoot, ErrorP errorRoot, BinP current) {
-    int i, x, error, goal = 9999, bestItem;
-    errorRoot->size = -1;
+    int i, x, error, goal = 9999;
     BinP best = malloc(sizeof (struct BinS));
     for (i = itemNum - 1; i >= 0; i--) {
         current = binRoot;
@@ -476,7 +474,6 @@ void bestFitOn(int binNum, int itemNum, int *items, BinP binRoot, ErrorP errorRo
             else if (goal > (items[i] + (current->capacity - current->size))) {
                 goal = items[i] + current->capacity - current->size;
                 best = current;
-                bestItem = items[i];
                 current = current->right;
             }
         }
@@ -627,7 +624,6 @@ void summary(HeuristicP on, HeuristicP off) {
  * prints out detailed log file to hdd
  *******************************************/
 void logFile(HeuristicP on, HeuristicP off) {
-    int i = 1, binsUsed;
     FILE *output = fopen("summary", "w");
     fprintf(output, "*****************ONLINE*****************\n");
     fprintf(output, "***Big bin, small items***\n");
