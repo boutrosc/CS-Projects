@@ -1,0 +1,49 @@
+public class Main {
+  
+    static int staticA;
+    static boolean staticB, staticC;
+    int[] arrayA;
+
+    public static void main(String[] args) {
+        for (int i=0; i<args.length; i = i + 1)
+          System.out.println("Arg[" + i + "] = " + args[i]);
+    }
+
+    void brokenSwap(Object a, Object b) {
+      Object temp = a;
+      
+      if (a == null)
+        return;
+      
+      a = b;
+      b = temp;
+    }
+    
+    static boolean emptyFunction() throws Exception {
+      int SIZE=100;
+      int one=1, two;
+
+      String[] s;
+
+      Object o1, o2;
+      
+      if ("Hello World" == "Hello World") 
+        return true;
+      else {
+        Main m;
+        while (!((one * two) == 5)) {
+          m.brokenSwap(o1, o2);
+          continue;
+        }
+      }
+      
+      for (int i=0; i<SIZE; i=i+1, Main.main(s)) {
+      }
+      
+      SIZE = -SIZE;
+      
+      return false != true;
+    }
+}
+
+
